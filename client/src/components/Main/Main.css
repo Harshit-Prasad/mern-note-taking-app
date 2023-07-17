@@ -1,0 +1,8 @@
+.grid-main__name {
+  grid-area: main;
+  overflow-y: scroll;
+}
+
+.grid-main__name h1 {
+  font-size: 48px;
+}
