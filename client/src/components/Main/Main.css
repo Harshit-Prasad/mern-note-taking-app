@@ -1,6 +1,6 @@
 .grid-main__name {
   grid-area: main;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .grid-main__name h1 {
