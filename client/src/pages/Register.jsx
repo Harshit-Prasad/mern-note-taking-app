@@ -27,7 +27,7 @@ export default function Register() {
     } else {
       try {
         const response = await register({ name, email, password }).unwrap();
-        toast.success("User successfully created");
+        toast.success("User created successfully");
         dispatch(setCredentials({ ...response }));
         navigate("/");
       } catch (error) {

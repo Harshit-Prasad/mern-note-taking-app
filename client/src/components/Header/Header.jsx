@@ -10,8 +10,6 @@ import { toast } from "react-toastify";
 export default function Header() {
   const { userInformation } = useSelector((state) => state.authentication);
 
-  console.log(userInformation);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +18,7 @@ export default function Header() {
 
     try {
       dispatch(logout());
-      toast.success("User Logged out successfully");
+      toast.success("Logged out successfully");
       navigate("/");
     } catch (error) {}
   };

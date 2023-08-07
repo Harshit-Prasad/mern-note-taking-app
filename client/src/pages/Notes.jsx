@@ -2,23 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import Main from "../components/Main/Main";
+import Loader from "../components/Loader/Loader";
 import CustomToggle from "../components/CustomToggle/CustomToggle";
-import axios from "axios";
+import { useNotesQuery } from "../slices/api-slice/noteApi";
 
 export default function Notes() {
-  const [notes, setNotes] = useState([]);
+  const { data: notes, isLoading } = useNotesQuery();
+
   const deleteHandler = (event, id) => {
     if (window.confirm("Are you sure ?")) console.log(id);
   };
 
-  async function getData() {
-    const { data } = await axios("/api/notes/");
-    setNotes(data);
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
+  console.log(notes);
 
   return (
     <Main title={`Welcomback ${"user"}`}>
@@ -27,8 +22,9 @@ export default function Notes() {
           Create New Note
         </Button>
       </Link>
-      {notes.length !== 0 ? (
-        notes.map((note, i) => {
+      <Loader isLoading={isLoading} />
+      {notes?.length !== 0 &&
+        notes?.map((note, i) => {
           return (
             <Accordion flush className="mt-1" key={note._id}>
               <Card className="mt-2">
@@ -59,17 +55,16 @@ export default function Notes() {
                         bg="success"
                         className=""
                       >
-                        {note.category}
+                        Category - {note.category}
                       </Badge>
                     </h4>
                     <blockquote className="blockquote mb-0">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer posuere erat a ante.{" "}
-                      </p>
+                      <p>{note.content}</p>
                       <footer className="blockquote-footer">
-                        Created at
-                        <cite title="Source Title"> Source Title</cite>
+                        Created on{" "}
+                        <cite title="Source Title">
+                          {note.createdAt.split("T")[0]}
+                        </cite>
                       </footer>
                     </blockquote>
                   </Card.Body>
@@ -77,10 +72,7 @@ export default function Notes() {
               </Card>
             </Accordion>
           );
-        })
-      ) : (
-        <h1>Loading</h1>
-      )}
+        })}
     </Main>
   );
 }

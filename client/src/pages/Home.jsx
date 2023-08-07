@@ -12,8 +12,6 @@ export default function Home() {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    console.log(e);
-
     dispatch(logout());
   };
 

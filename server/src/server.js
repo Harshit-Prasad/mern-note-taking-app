@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import notes from "./data.js";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
+import noteRoutes from "./routes/note.route.js";
 import { notFound, errorHandler } from "./middlewares/error.middleware.js";
 
 config();
@@ -22,6 +23,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/note", noteRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

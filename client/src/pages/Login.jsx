@@ -15,14 +15,14 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isError, isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const response = await login({ email, password }).unwrap();
-      toast.success("User logged in successfully");
+      toast.success("Logged in successfully");
       dispatch(setCredentials({ ...response }));
       navigate("/");
     } catch (error) {

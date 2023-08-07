@@ -5,7 +5,7 @@ export default function Loader({ isLoading, size = 75 }) {
   return (
     isLoading && (
       <div className="d-flex justify-content-center align-items-center">
-        <Spinner />
+        <Spinner size={size} />
       </div>
     )
   );
