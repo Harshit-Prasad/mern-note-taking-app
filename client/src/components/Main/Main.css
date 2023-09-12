@@ -4,5 +4,11 @@
 }
 
 .grid-main__name h1 {
-  font-size: 48px;
+  font-size: 32px;
+}
+
+@media (min-width: 768px) {
+  .grid-main__name h1 {
+    font-size: 48px;
+  }
 }

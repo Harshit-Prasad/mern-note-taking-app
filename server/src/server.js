@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import { config } from "dotenv";
-import notes from "./data.js";
+import path from "path";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
 import noteRoutes from "./routes/note.route.js";
@@ -14,22 +14,34 @@ const PORT = process.env.PORT;
 
 app.use(json());
 
-app.get("/", (req, res) => {
-  res.send("app is running");
-});
-
-app.get("/api/notes", (req, res) => {
-  res.send(notes);
-});
-
 app.use("/api/user", userRoutes);
 app.use("/api/note", noteRoutes);
+
+// DEPLOYMENT
+
+const __dirname__ = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname__, "..", "client", "dist")));
+
+  app.get("*", (_, res) =>
+    res.sendFile(
+      path.resolve(__dirname__, "..", "client", "dist", "index.html")
+    )
+  );
+} else {
+  app.get("/", (_, res) => {
+    res.send("API is running..");
+  });
+}
+
+// DEPLOYMENT
 
 app.use(notFound);
 app.use(errorHandler);
 
-const listen = function () {
+const start = function () {
   console.log("Server started on PORT: " + PORT);
 };
 
-app.listen(PORT, listen);
+app.listen(PORT, start);

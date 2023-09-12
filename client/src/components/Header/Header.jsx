@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../../slices/authentication-slice/authentication";
-import "./Header.css";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { setSearchValue } from "../../slices/search-slice/search";
+import { useDispatch, useSelector } from "react-redux";
+import useDebounce from "../../hooks/useDebounce";
+import "./Header.css";
 
 export default function Header() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { debounceValue } = useDebounce(searchTerm, 500);
+
+  const { searchValue } = useSelector((state) => state.search);
   const { userInformation } = useSelector((state) => state.authentication);
 
   const dispatch = useDispatch();
@@ -20,18 +26,29 @@ export default function Header() {
       dispatch(logout());
       toast.success("Logged out successfully");
       navigate("/");
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error?.data?.message);
+    }
   };
+
+  const handleSearch = (e) => {
+    const searchedTerm = e.target.value;
+    setSearchTerm(() => searchedTerm);
+  };
+
+  useEffect(() => {
+    dispatch(setSearchValue({ debounceValue }));
+  }, [debounceValue]);
 
   return (
     <Navbar
       expand="lg"
       variant="dark"
       bg="primary"
-      className="grid-header__name pr-md-5 pl-md-5"
+      className="grid-header__name pr-md-5 pl-md-5 border-0"
     >
       <Navbar.Brand>
-        <Link to="/">Note Stack</Link>
+        <Link to="/">Notes Stack</Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
@@ -43,6 +60,7 @@ export default function Header() {
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
+                  onChange={handleSearch}
                 />
               </Form>
             </Nav>

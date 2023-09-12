@@ -7,7 +7,7 @@ import generateToken from "../utils/generateToken.js";
 // @access      : public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
@@ -55,4 +55,32 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser };
+// @description : updating user profile
+// @route       : user/profile
+// @access      : private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
+export { registerUser, loginUser, updateUserProfile };

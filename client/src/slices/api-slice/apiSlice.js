@@ -3,9 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseQuery = fetchBaseQuery({
   baseUrl: "",
   prepareHeaders(headers, { getState }) {
-    const { token } = getState().authentication.userInformation;
+    const authenticationToken = getState().authentication.userInformation;
 
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+    if (authenticationToken)
+      headers.set("Authorization", `Bearer ${authenticationToken.token}`);
+
+    console.log(authenticationToken);
     headers.set("Content-type", "application/json");
 
     return headers;
@@ -14,5 +17,6 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery,
+  tagTypes: ["Notes", "Note"],
   endpoints: (builder) => ({}),
 });

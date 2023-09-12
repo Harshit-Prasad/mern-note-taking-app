@@ -24,10 +24,9 @@ export default function Login() {
       const response = await login({ email, password }).unwrap();
       toast.success("Logged in successfully");
       dispatch(setCredentials({ ...response }));
-      navigate("/");
+      navigate("/notes");
     } catch (error) {
       toast.error(error?.data?.message);
-      console.log(error);
     }
   };
 
