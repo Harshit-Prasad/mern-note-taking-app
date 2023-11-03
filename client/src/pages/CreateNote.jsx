@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import ReactMarkdown from "react-markdown";
 import { useCreateNoteMutation } from "../slices/api-slice/noteApi";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
@@ -30,8 +29,6 @@ export default function CreateNote() {
     const createdNote = await createNote({ title, content, category }).unwrap();
 
     if (createdNote) toast.success("New note created");
-
-    console.log(createdNote);
 
     resetHandler();
     navigate("/notes");
@@ -65,16 +62,7 @@ export default function CreateNote() {
               />
             </Form.Group>
 
-            {content && (
-              <Card>
-                <Card.Header>Note Preview</Card.Header>
-                <Card.Body>
-                  <ReactMarkdown>{content}</ReactMarkdown>
-                </Card.Body>
-              </Card>
-            )}
-
-            <Form.Group className="mt-2" controlId="content">
+            <Form.Group className="mt-2" controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="content"

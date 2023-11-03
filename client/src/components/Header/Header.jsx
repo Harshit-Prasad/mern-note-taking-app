@@ -56,12 +56,14 @@ export default function Header() {
           <>
             <Nav className="ml-auto mr-auto my-2 my-lg-0" navbarScroll>
               <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  onChange={handleSearch}
-                />
+                <Form.Group controlId="search">
+                  <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    onChange={handleSearch}
+                  />
+                </Form.Group>
               </Form>
             </Nav>
             <Nav>

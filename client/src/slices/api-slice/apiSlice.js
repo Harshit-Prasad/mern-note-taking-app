@@ -4,11 +4,8 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "",
   prepareHeaders(headers, { getState }) {
     const authenticationToken = getState().authentication.userInformation;
-
     if (authenticationToken)
       headers.set("Authorization", `Bearer ${authenticationToken.token}`);
-
-    console.log(authenticationToken);
     headers.set("Content-type", "application/json");
 
     return headers;

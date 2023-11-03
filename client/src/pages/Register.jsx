@@ -3,7 +3,7 @@ import Main from "../components/Main/Main";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "../slices/authentication-slice/authentication";
 import { useRegisterMutation } from "../slices/api-slice/userApi";
 import { toast } from "react-toastify";

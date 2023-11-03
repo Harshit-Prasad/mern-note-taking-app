@@ -28,7 +28,6 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access      : public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(req);
   const userExists = await User.findOne({ email });
 
   if (userExists) {

@@ -7,7 +7,6 @@ import {
   useUpdateNoteMutation,
 } from "../slices/api-slice/noteApi";
 import { toast } from "react-toastify";
-import ReactMarkdown from "react-markdown";
 import Main from "../components/Main/Main";
 import Loader from "../components/Loader/Loader";
 
@@ -58,8 +57,6 @@ export default function Note() {
         category,
       }).unwrap();
 
-      console.log(response);
-
       if (response) toast.success("Note was Updated successfully");
       navigate("/notes");
     } catch (error) {
@@ -103,13 +100,11 @@ export default function Note() {
             {content && (
               <Card>
                 <Card.Header>Note Preview</Card.Header>
-                <Card.Body>
-                  <ReactMarkdown>{content}</ReactMarkdown>
-                </Card.Body>
+                <Card.Body>{content}</Card.Body>
               </Card>
             )}
 
-            <Form.Group className="mt-2" controlId="content">
+            <Form.Group className="mt-2" controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="content"

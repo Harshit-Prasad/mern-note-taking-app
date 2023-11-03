@@ -1,4 +1,5 @@
 import { apiSlice } from "./apiSlice";
+
 const NOTE_URL = "/api/note";
 
 export const noteApiSlice = apiSlice.injectEndpoints({
@@ -30,7 +31,6 @@ export const noteApiSlice = apiSlice.injectEndpoints({
 
     updateNote: builder.mutation({
       query: (data) => {
-        console.log(data);
         return {
           url: `${NOTE_URL}/${data.id}`,
           method: "PUT",
