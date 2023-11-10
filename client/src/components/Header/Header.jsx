@@ -36,6 +36,11 @@ export default function Header() {
     setSearchTerm(() => searchedTerm);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearchTerm("");
+  };
+
   useEffect(() => {
     dispatch(setSearchValue({ debounceValue }));
   }, [debounceValue]);
@@ -55,8 +60,8 @@ export default function Header() {
         {userInformation ? (
           <>
             <Nav className="ml-auto mr-auto my-2 my-lg-0" navbarScroll>
-              <Form className="d-flex">
-                <Form.Group controlId="search">
+              <Form onSubmit={handleSearchSubmit} className="d-flex">
+                <Form.Group className="w-100" controlId="search">
                   <Form.Control
                     type="search"
                     placeholder="Search"

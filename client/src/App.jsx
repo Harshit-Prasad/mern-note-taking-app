@@ -8,12 +8,13 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import CreateNote from "./pages/CreateNote";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        <Route index path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<PrivateRoute />}>
@@ -22,6 +23,7 @@ function App() {
           <Route path="/createNote" element={<CreateNote />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

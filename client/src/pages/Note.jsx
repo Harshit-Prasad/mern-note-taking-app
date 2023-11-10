@@ -97,13 +97,6 @@ export default function Note() {
               />
             </Form.Group>
 
-            {content && (
-              <Card>
-                <Card.Header>Note Preview</Card.Header>
-                <Card.Body>{content}</Card.Body>
-              </Card>
-            )}
-
             <Form.Group className="mt-2" controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
